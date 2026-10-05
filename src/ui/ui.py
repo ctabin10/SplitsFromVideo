@@ -1,35 +1,36 @@
+from pathlib import Path
 import webview
 
 class Api:
-    def on_about_clicked(self):
-        print("Python: About opened")
+    def show_about(self):
+        print("About clicked")
+        return {"message": "SplitsFromVideo v1.0"}
 
-    def on_how_to_use_clicked(self):
-        print("Python: How to use opened")
+    def show_instructions(self):
+        print("How to use clicked")
 
-    def on_settings_clicked(self):
-        print("Python: Settings opened")
+    def open_settings(self):
+        print("Settings clicked")
 
-    def on_url_changed(self, url):
-        print(f"Python: URL changed to {url}")
+    def process_download(self, url, fmt, file_name):
+        print(f"Downloading: URL={url}, Format={fmt}, Name={file_name}")
+        # Add your YouTube download / split logic here
+        return {"status": "success", "message": f"Saved {file_name or 'video'} as {fmt}!"}
 
-    def on_format_selected(self, format_type):
-        print(f"Python: Format selected - {format_type}")
-
-    def on_filename_changed(self, filename):
-        print(f"Python: Filename changed - {filename}")
-
-    def on_download_clicked(self, data):
-        print(f"Python: Download triggered with data - {data}")
-
-if __name__ == '__main__':
+def run():
+    # Resolve exact path to ui.html regardless of execution working dir
+    html_path = Path(__file__).parent / "ui.html"
+    
     api = Api()
-    window = webview.create_window(
-        'SplitsFromVideo', 
-        'ui.html', 
+    webview.create_window(
+        title="SplitsFromVideo",
+        url=str(html_path.resolve()),
         js_api=api,
-        width=850,
-        height=550,
-        resizable=False
+        width=960,
+        height=620,
+        resizable=True
     )
     webview.start()
+
+if __name__ == "__main__":
+    run()
