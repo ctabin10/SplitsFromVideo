@@ -125,6 +125,13 @@ body {
   box-shadow: 0 0 0 3px var(--green-glow);
 }
 
+/* the grid for the inputs below the url input */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
 /* Main Content Grid */
 .main-grid {
   display: grid;

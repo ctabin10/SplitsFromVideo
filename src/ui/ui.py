@@ -1,6 +1,7 @@
 from pathlib import Path
 import webview
 
+# This is passed to js_api when creating webview window.
 class Api:
     def show_about(self):
         print("About clicked")
@@ -11,6 +12,7 @@ class Api:
 
     def open_settings(self):
         print("Settings clicked")
+
 
     def process_download(self, url, fmt, file_name):
         print(f"Downloading: URL={url}, Format={fmt}, Name={file_name}")
