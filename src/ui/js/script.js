@@ -1,9 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const downloadBtn = document.getElementById('downloadBtn');
+    const getFrameBtn = document.getElementById('getFrameBtn');
     const urlInput = document.getElementById('urlInput');
+    const frameInput = document.getElementById('frameInput');
     const formatSelect = document.getElementById('formatSelect');
     const fileNameInput = document.getElementById('fileNameInput');
     const videoPlayer = document.getElementById('videoPlayer');
+
+
+    function timeToSeconds(timeString) {
+        // Converts "1:15" to 75, or "1:02:30" to 3750
+        return timeString.split(':').reduce((acc, time) => (60 * acc) + Number(time), 0);
+    }
 
     // Helper: Extract YouTube ID from standard, shortened, or embed URLs
     function getYouTubeEmbedUrl(url) {
@@ -21,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = e.target.value.trim();
         const embedUrl = getYouTubeEmbedUrl(url);
         videoPlayer.src = embedUrl;
+        window.webview.api.setup_video(url);
     });
 
     // Handle pywebview API readiness
@@ -39,6 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('settingsBtn').addEventListener('click', () => {
         if (window.pywebview) window.pywebview.api.open_settings();
+    });
+
+
+
+    getFrameBtn.addEventListener('click', async () => {
+        if (frameInput.value != null) {
+            if (window.pywebview) window.pywebview.api.handle_frame_popup(frameInput.value);
+        }
     });
 
     // Download Handler

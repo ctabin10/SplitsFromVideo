@@ -25,14 +25,16 @@
             <input type="text" id="urlInput" class="input-field" placeholder="https://youtube.com/watch?v=...">
         </section>
 
-
         <div class="input-grid">
             <label for="endTimeInput">Input run end time</label>
-            <input type="text" id="endTimeInput" placeholder="0">
-
-            <label for="endTimeInput2">Input run end time2</label>
-            <input type="text" id="endTimeInput2" placeholder="0">
+            <input type="text" id="endTimeInput" placeholder="0:00" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" title="Enter time as MM:SS or HH:MM:SS">
+            <label for="videoFpsInput">Input video FPS</label>
+            <input type="text" id="videoFpsInput" value="60">
+            <label for="frameInput">Input frame</label>
+            <input type="number">
         </div>
+
+
 
     
 
@@ -62,6 +64,7 @@
                     <input type="text" id="fileNameInput" class="input-field" placeholder="File name input">
                 </div>
 
+                <button id="selectFrameBtn" class="btn btn-primary">Select Frame</button>
                 <button id="downloadBtn" class="btn btn-primary">Download</button>
             </div>
 
