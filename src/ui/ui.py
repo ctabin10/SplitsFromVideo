@@ -32,11 +32,15 @@ class Api:
 
         # Read the HTML template file
         template_path = Path(__file__).parent / "frame_preview.html"
+        css_path = Path(__file__).parent / "style.css"
+        
         html_template = template_path.read_text(encoding="utf-8")
+        css_content = css_path.read_text(encoding="utf-8")
 
         # 5. Inject the image data and frame number into the template
         rendered_html = html_template.replace("{{FRAME_DATA}}", frame_url)\
-                                     .replace("{{FRAME_NUMBER}}", str(frame_number))
+                                     .replace("{{FRAME_NUMBER}}", str(frame_number))\
+                                     .replace("{{CSS_CONTENT}}", css_content)
 
         # 6. Open the window displaying the populated HTML
         webview.create_window(
@@ -84,7 +88,7 @@ def run():
         height=620,
         resizable=True
     )
-    webview.start(http_server=True)
+    webview.start(debug=True, http_server=True)
 
 if __name__ == "__main__":
     run()

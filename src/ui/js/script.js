@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = e.target.value.trim();
         const embedUrl = getYouTubeEmbedUrl(url);
         videoPlayer.src = embedUrl;
-        window.webview.api.setup_video(url);
+        window.pywebview.api.setup_video(url);
     });
 
     // Handle pywebview API readiness
@@ -53,8 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     getFrameBtn.addEventListener('click', async () => {
-        if (frameInput.value != null) {
-            if (window.pywebview) window.pywebview.api.handle_frame_popup(frameInput.value);
+        if (frameInput.value) {
+            if (window.pywebview) {
+                // 1. Set loading state
+                getFrameBtn.textContent = 'Loading...';
+                getFrameBtn.disabled = true;
+
+                try {
+                    // 2. Wait for the Python backend to fetch the frame and open the window
+                    await window.pywebview.api.handle_frame_popup(parseFloat(frameInput.value));
+                } catch (err) {
+                    console.error("Error opening frame:", err);
+                } finally {
+                    // 3. Reset the button back to its original state
+                    getFrameBtn.textContent = 'Select Frame';
+                    getFrameBtn.disabled = false;
+                }
+            }
         }
     });
 

@@ -60,6 +60,9 @@ class VideoService:
         return image_data_url
 
     def get_raw_video_frame(self, frame_number):
+        if self.video_capture is None:
+            print("Error: Video capture not initialized. Please enter a URL first.")
+            return None
         self.video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
         ret, frame_image = self.video_capture.read()
         if ret:

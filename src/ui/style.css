@@ -1,17 +1,18 @@
 :root {
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
+  --bg-color: #0b0f17;
+  --card-bg: #1e293b;
+  --card-bg-hover: #334155;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
   
   /* Modern Green Accent Palette */
   --primary-green: #10b981;
   --primary-green-hover: #059669;
-  --green-glow: rgba(16, 185, 129, 0.15);
+  --green-glow: rgba(16, 185, 129, 0.25);
   
   --btn-dark: #334155;
-  --btn-dark-hover: #1e293b;
+  --btn-dark-hover: #475569;
   --radius: 10px;
 }
 
@@ -71,7 +72,8 @@ body {
 
 .btn-secondary {
   background-color: var(--btn-dark);
-  color: #ffffff;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
@@ -108,6 +110,7 @@ body {
   font-weight: 600;
   white-space: nowrap;
   font-size: 0.95rem;
+  color: var(--text-main);
 }
 
 .input-field {
@@ -115,9 +118,15 @@ body {
   padding: 9px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
+  background-color: #0f172a;
+  color: var(--text-main);
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
 }
 
 .input-field:focus {
@@ -148,7 +157,7 @@ body {
 
 .video-preview-card {
   aspect-ratio: 16 / 9;
-  background-color: #0f172a;
+  background-color: #000000;
   border-radius: var(--radius);
   display: flex;
   align-items: center;
@@ -173,7 +182,8 @@ body {
   padding: 9px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: var(--card-bg);
+  background-color: #0f172a;
+  color: var(--text-main);
   font-size: 0.9rem;
   outline: none;
   cursor: pointer;
@@ -223,15 +233,15 @@ body {
 .split-item {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.95rem;
-  padding: 4px 8px;
+  padding: 6px 8px;
   border-radius: 4px;
-  color: #334155;
-  transition: background 0.15s ease;
+  color: #e2e8f0;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .split-item:hover {
   background: var(--green-glow);
-  color: var(--primary-green-hover);
+  color: var(--primary-green);
 }
 
 
@@ -239,14 +249,17 @@ body {
    Frame Preview Popup Styles
    ========================================================================== */
 .frame-preview-body {
-  background-color: #0f172a;
+  background-color: #050811;
   height: 100vh;
+  width: 100vw; 
   padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   user-select: none;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents scrollbars from appearing */
 }
 
 .frame-preview-container {
@@ -254,16 +267,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  overflow: hidden;
+  width: 100%; /* Resets to fill the locked body */
+  min-height: 0;
+  min-width: 0; /* Prevents flex children from pushing bounds */
 }
 
 .frame-preview-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 80%; 
+  height: 80%;
   object-fit: contain;
   border-radius: var(--radius);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
 }
 
 .frame-controls-bar {

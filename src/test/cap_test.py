@@ -12,7 +12,7 @@ ydl_opts = {
         'node': {},
     },
     'format': 'bestvideo[ext=mp4]/bestvideo/best',
-    'quiet': True,
+    'quiet': True
 }
 
 # 1. Get video URL using yt-dlp
