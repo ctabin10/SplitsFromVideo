@@ -24,33 +24,31 @@ class Api:
 
 
     def handle_frame_popup(self, frame_number):
-        frame = self.capture_frame(frame_number)
-        if frame is None:
-            return {"status": "error", "message": "Could not capture frame"}
-
-        frame_url = self.video_service.get_frame_url(frame)
-
-        # Read the HTML template file
+        self.current_frame_preview = frame_number
         template_path = Path(__file__).parent / "frame_preview.html"
-        css_path = Path(__file__).parent / "style.css"
         
-        html_template = template_path.read_text(encoding="utf-8")
-        css_content = css_path.read_text(encoding="utf-8")
-
-        # 5. Inject the image data and frame number into the template
-        rendered_html = html_template.replace("{{FRAME_DATA}}", frame_url)\
-                                     .replace("{{FRAME_NUMBER}}", str(frame_number))\
-                                     .replace("{{CSS_CONTENT}}", css_content)
-
-        # 6. Open the window displaying the populated HTML
         webview.create_window(
             title=f"Frame Preview - #{frame_number}",
-            html=rendered_html,
+            url=str(template_path.resolve()), # Uses the HTTP server
             width=1280,
             height=720,
-            resizable=True
-        )
-        
+            resizable=True,
+            js_api=self
+        )    
+
+    def get_video_fps(self):
+        fps = self.video_service.get_video_fps();
+        return fps
+
+    def get_current_preview_frame(self):
+        return self.current_frame_preview
+
+
+    def fetch_frame_url(self, frame_number: int):
+        frame = self.capture_frame(int(frame_number))
+        if frame is not None:
+            return self.video_service.get_frame_url(frame)
+        return None
 
 
     def show_about(self):

@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frame Preview</title>
-    <style>{{CSS_CONTENT}}</style> 
+    <link rel="stylesheet" href="style.css">
+    <script src="js/frame_preview.js" defer></script>
 </head>
 <body class="frame-preview-body">
     <div class="frame-preview-container">
-        <img class="frame-preview-img" src="{{FRAME_DATA}}" alt="Frame {{FRAME_NUMBER}}" />
+        <img class="frame-preview-img" src="" alt="Loading..." />
     </div>
 
     <div class="frame-controls-bar">
         <label for="timeInput">Input detailed timer value</label>
-        <input type="text" id="endTimeInput" placeholder="00:00.000" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" title="Enter time as MM:SS or HH:MM:SS">
+        <input type="text" id="timeInput" placeholder="00:00.000" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" title="Enter time as MM:SS or HH:MM:SS">
         <button id="nextFrameBtn" class="btn btn-primary">Next frame</button>
     </div>
 </body>

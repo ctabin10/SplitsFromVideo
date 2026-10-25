@@ -22,6 +22,9 @@ class VideoService:
         self.video_stream = None
         self.video_capture = None
 
+
+    def get_video_fps(self):
+        return self.video_frame_rate
         
 
     # This calls the functions that set the video stream and capture
