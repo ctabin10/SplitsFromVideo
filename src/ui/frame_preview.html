@@ -12,7 +12,9 @@
     </div>
 
     <div class="frame-controls-bar">
-        <button class="btn btn-primary" onclick="window.close()">Close</button>
+        <label for="timeInput">Input detailed timer value</label>
+        <input type="text" id="endTimeInput" placeholder="00:00.000" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" title="Enter time as MM:SS or HH:MM:SS">
+        <button id="nextFrameBtn" class="btn btn-primary">Next frame</button>
     </div>
 </body>
 </html>

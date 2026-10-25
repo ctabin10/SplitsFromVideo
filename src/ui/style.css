@@ -273,8 +273,7 @@ body {
 }
 
 .frame-preview-img {
-  width: 80%; 
-  height: 80%;
+  width: 80%;
   object-fit: contain;
   border-radius: var(--radius);
   border: 1px solid var(--border-color);

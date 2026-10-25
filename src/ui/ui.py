@@ -46,8 +46,8 @@ class Api:
         webview.create_window(
             title=f"Frame Preview - #{frame_number}",
             html=rendered_html,
-            width=800,
-            height=550,
+            width=1280,
+            height=720,
             resizable=True
         )
         
