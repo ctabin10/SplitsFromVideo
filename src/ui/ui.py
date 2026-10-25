@@ -9,6 +9,9 @@ class Api:
 
     def __init__(self):
         self.video_service = VideoService()
+        self.split_frame_list = []
+        self.split_times_list = []
+        self.main_window = None
 
     def setup_video(self, url: str):
         self.video_service.setup_video(url)
@@ -23,7 +26,57 @@ class Api:
         return frame
 
 
+
+    def add_to_split_frame_list(self, frame_number):
+        self.split_frame_list.append(frame_number)
+        print(self.split_frame_list)
+        self.calculate_splits_from_list()
+        # If there are more than one splits, start adding them to the UI
+        # if len(self.split_frame_list) > 1:
+        #     self.handle_ui_split_update()
+
+
+    def get_split_frame_list(self):
+        return self.split_frame_list
+
+    def get_split_times_list(self):
+        return self.split_times_list
+
+    def format_timestamp(self, total_seconds: float) -> str:
+        # Convert to total milliseconds to ensure safe integer rounding
+        total_ms = round(total_seconds * 1000)
+        
+        ms = total_ms % 1000
+        total_sec = total_ms // 1000
+        seconds = total_sec % 60
+        minutes = (total_sec // 60) % 60
+        hours = total_sec // 3600
+
+        if hours > 0:
+            return f"{hours}:{minutes:02d}:{seconds:02d}.{ms:03d}"
+        return f"{minutes}:{seconds:02d}.{ms:03d}"
+    
+
+    # This function takes the list of split frames and then converts 
+    # them to string timestamps and puts them in split_times_list
+    def calculate_splits_from_list(self):
+        split_times_list = []
+        for i in range(len(self.split_frame_list)-1):
+            current_split_length = self.split_frame_list[i]-self.split_frame_list[i+1]
+            print("Current split length: " + str(current_split_length))
+            split_times_list.append(self.format_timestamp(current_split_length/self.get_video_fps()))
+        # Overwriting the whole list here. This is bad for big inputs but fine for this.
+        self.split_times_list = split_times_list
+        print(split_times_list)
+        print(self.split_times_list)
+
+
+        
+
+    
+
     def handle_frame_popup(self, frame_number):
+        self.split_frame_list.append(frame_number)
         self.current_frame_preview = frame_number
         template_path = Path(__file__).parent / "frame_preview.html"
         
@@ -78,7 +131,7 @@ def run():
     html_path = Path(__file__).parent / "ui.html"
     
     api = Api()
-    webview.create_window(
+    api._main_window = webview.create_window(
         title="SplitsFromVideo",
         url=str(html_path.resolve()),
         js_api=api,

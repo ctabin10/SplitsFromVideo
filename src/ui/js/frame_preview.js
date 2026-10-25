@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const nextFrameBtn = document.getElementById('nextFrameBtn');    
     const timeInput = document.getElementById('timeInput');
+    const recordSplitBtn = document.getElementById('recordSplitBtn');
     const imgElement = document.querySelector('.frame-preview-img');
     let currentFrame = 0;
 
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function frameFromSeconds(seconds) {
         videoFPS = await window.pywebview.api.get_video_fps();
         // Flooring here loses some frame precision maybe. If we are lower than a frame, return 1
-        return Math.max(Math.ceil(seconds*videoFPS), 1)
+        return Math.max(Math.ceil(seconds*videoFPS), 1) 
     }
     
 
@@ -48,6 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         nextFrameBtn.textContent = "Next frame";
     });
+
+    // This adds the current frame to the list of split frames in ui.py. The first frame is there by default
+    recordSplitBtn.addEventListener('click', async () => {
+        window.pywebview.api.add_to_split_frame_list(currentFrame);
+        const splitFrameList = await window.pywebview.api.get_split_frame_list();
+    });
+
+
 });
+
+
 
 

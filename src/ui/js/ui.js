@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileNameInput = document.getElementById('fileNameInput');
     const videoPlayer = document.getElementById('videoPlayer');
 
+    
 
     function timeToSeconds(timeString) {
         // Converts "1:15" to 75, or "1:02:30" to 3750
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return 'about:blank';
     }
+
 
     // Dynamic Video Preview Update
     urlInput.addEventListener('input', (e) => {
