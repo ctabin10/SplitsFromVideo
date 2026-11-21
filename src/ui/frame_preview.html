@@ -9,10 +9,25 @@
 </head>
 <body class="frame-preview-body">
     <div class="frame-preview-container">
-        <img class="frame-preview-img" src="" alt="Loading..." />
+        <div id="frameStage" class="frame-stage" style="position: relative; display: inline-block; max-width: 100%;">
+            <img class="frame-preview-img" src="" alt="Loading..." style="display: block; max-width: 100%; height: auto; user-select: none; -webkit-user-drag: none;" />
+            <div id="regionOverlay" class="region-overlay" style="position: absolute; inset: 0; z-index: 10; touch-action: none; cursor: crosshair; user-select: none;">
+                <div id="splitRegionBox" class="region-box region-box-split" aria-label="Split timer region" style="display: none; position: absolute; border: 2px solid #00e5ff; background: rgba(0, 229, 255, 0.15); pointer-events: none; box-sizing: border-box;"></div>
+                <div id="totalRegionBox" class="region-box region-box-total" aria-label="Total run region" style="display: none; position: absolute; border: 2px solid #ffb703; background: rgba(255, 183, 3, 0.15); pointer-events: none; box-sizing: border-box;"></div>
+            </div>
+        </div>
     </div>
 
     <div class="frame-controls-bar">
+        <button id="selectSplitRegionBtn" type="button" class="btn btn-secondary">Select Split Region</button>
+        <button id="selectTotalRegionBtn" type="button" class="btn btn-secondary">Select Total Region</button>
+
+        <label for="splitTimeInput">Split timer</label>
+        <input type="text" id="splitTimeInput" placeholder="00:00.000" readonly>
+
+        <label for="totalRunInput">Total run</label>
+        <input type="text" id="totalRunInput" placeholder="00:00.000" readonly>
+
         <label for="timeInput">Input detailed timer value</label>
         <input type="text" id="timeInput" placeholder="00:00.000" pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" title="Enter time as MM:SS or HH:MM:SS">
         <button id="nextFrameBtn" class="btn btn-primary">Next frame</button>
